@@ -5,8 +5,14 @@ const campgroundSchema = new Schema({
     title : String,
     price : String,
     description : String,
-    location : String
+    state : String,
+    city: String
 })
+
+campgroundSchema.virtual('location').get( function () {
+     return `${this.city}, ${this.state}`
+    }
+)
 
 const Campground = mongoose.model("Campground", campgroundSchema);
 

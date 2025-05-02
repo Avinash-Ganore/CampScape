@@ -24,9 +24,11 @@ const seeddb = async () => {
     for (let i=0; i<50; i++) {
         const camp = new campground({
             title : `${random(descriptors)} ${random(places)}`,
-            location : `${random(cities).city}, ${random(cities).state}`
+            city : random(cities).city,
+            state : random(cities).state
         });
         await camp.save();
+        console.log(camp)
     }
 }
 

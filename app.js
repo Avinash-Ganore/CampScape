@@ -39,9 +39,8 @@ const capitalize = str => str.charAt(0).toUpperCase() + str.slice(1);
 
 app.post("/campgrounds", async (req, res) => {
     req.body.campground.title = capitalize(req.body.campground.title);
-    req.body.city = capitalize(req.body.city);
-    req.body.state = capitalize(req.body.state);   
-    req.body.campground.location = `${req.body.city}, ${req.body.state}`;
+    req.body.campground.city = capitalize(req.body.campground.city);
+    req.body.campground.state = capitalize(req.body.campground.state);
     const newCamp = new Campground(req.body.campground);
     await newCamp.save();
     res.redirect(`/campgrounds/${newCamp._id}`);
