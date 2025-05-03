@@ -18,6 +18,7 @@ const app = express();
 const port = 3000;
 
 app.use(express.urlencoded({extended: true}));
+app.use(methodOverride('_method'));
 app.set("views", path.join(import.meta.dirname , "views"));
 app.set("view engine", "ejs");
 
@@ -35,7 +36,7 @@ app.get("/campgrounds/:id", async (req, res) => {
     res.render("campgrounds/show",{campground})
 })
 
-const capitalize = str => str.charAt(0).toUpperCase() + str.slice(1);
+const capitalize = e => e.charAt(0).toUpperCase() + e.slice(1);
 
 app.post("/campgrounds", async (req, res) => {
     req.body.campground.title = capitalize(req.body.campground.title);
@@ -46,6 +47,25 @@ app.post("/campgrounds", async (req, res) => {
     res.redirect(`/campgrounds/${newCamp._id}`);
 })
 
+app.get("/campgrounds/:id/edit", async (req, res) => {
+    const campground = await Campground.findById(req.params.id);
+    console.log(campground)
+    res.render("campgrounds/edit", {campground});
+})
+
+app.put("/campgrounds/:id", async (req, res) => {
+    const {id} = req.params
+    req.body.campground.title = capitalize(req.body.campground.title);
+    req.body.campground.city = capitalize(req.body.campground.city);
+    req.body.campground.state = capitalize(req.body.campground.state);
+    await Campground.findByIdAndUpdate(id, req.body.campground, {runValidators: true})
+    res.redirect(`/campgrounds/${id}`);
+})
+
+app.delete("/campgrounds/:id", async (req, res) => {
+    await Campground.findByIdAndDelete(req.params.id);
+    res.redirect("/campgrounds");
+})
 
 app.listen(port, () => {
     console.log(`Serving on http://localhost:${port}`);
