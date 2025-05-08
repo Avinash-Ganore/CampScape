@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import methodOverride from "method-override";
 import path from "path";
+import ejsMate from "ejs-mate";
 import Campground from "./models/campground.js";
 
 mongoose.connect("mongodb://localhost:27017/yelpCamp",{
@@ -17,6 +18,7 @@ mongoose.connect("mongodb://localhost:27017/yelpCamp",{
 const app = express();
 const port = 3000;
 
+app.engine("ejs", ejsMate);
 app.use(express.urlencoded({extended: true}));
 app.use(methodOverride('_method'));
 app.set("views", path.join(import.meta.dirname , "views"));
@@ -49,7 +51,6 @@ app.post("/campgrounds", async (req, res) => {
 
 app.get("/campgrounds/:id/edit", async (req, res) => {
     const campground = await Campground.findById(req.params.id);
-    console.log(campground)
     res.render("campgrounds/edit", {campground});
 })
 

@@ -25,10 +25,12 @@ const seeddb = async () => {
         const camp = new campground({
             title : `${random(descriptors)} ${random(places)}`,
             city : random(cities).city,
-            state : random(cities).state
+            state : random(cities).state,
+            image : `https://picsum.photos/400?random=${Math.random()}`,
+            description : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod.",
+            price : Math.floor(Math.random() * 20) + 10
         });
         await camp.save();
-        console.log(camp)
     }
 }
 
