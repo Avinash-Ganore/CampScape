@@ -1,36 +1,64 @@
 <% layout("layouts/boilerplate") %>
-<div class="row">
-    <h1 class="text-center">New Campground</h1>
-    <div class="col-6 offset-3">
-        <form action="/campgrounds" method="post">
-            <div class="mb-3">
-                <label class="form-label" for="name">Campground Name:</label>
-                <input class="form-control" type="text" id="name" name="campground[title]">
-            </div>
-            <div>
-                <label class="form-label" for="city">City:</label>
-                <input class="form-control" type="text" id="city" name="campground[city]"><br>
-                <label class="form-label" for="state">State:</label>
-                <input class="form-control" type="text" id="state" name="campground[state]"><br>
-            </div>
-            <div class="mb-3">
-                <label class="form-label" for="image">Campground Url:</label>
-                <input class="form-control" type="text" id="image" name="campground[image]">
-            </div>
-            <div class="mb-3">
-                <label class="form-label" for="description">Description:</label>
-                <textarea class="form-control" type="text" id="description" name="campground[description]"></textarea>
-            </div>
-            <div class="mb-3">
-                <label class="form-label" for="price">price:</label>
-                <div class="input-group mb-3">
-                    <span class="input-group-text" id="price-label">$</span>
-                    <input type="text" id="price" name="campground[price]" class="form-control" placeholder="0.00" aria-label="price" aria-describedby="price-label">
+<div class="column is-half is-offset-one-quarter">
+    <h1 class="title is-1 has-text-centered mb-4">Create Campground</h1>
+    <div class="card p-3 ">
+        <div class="field ">
+            <form action="/campgrounds" method="post">
+                <label class="label" for="Name">Name : </label>
+                <div class="control mb-3">
+                <input class="input" type="text" id="Name" name="campground[title]" placeholder="Name">
                 </div>
-            </div>
-            <button class="btn btn-success">Add campground</button>
-            <a class="btn btn-outline-danger" href="/campgrounds">Cancel</a>
-        </form>
-        
+
+                <label class="label" for="city">city : </label>
+                <div class="control mb-3">
+                    <input class="input" type="text" id="city" name="campground[city]" placeholder="city">
+                </div>
+
+                <label class="label" for="state">state : </label>
+                <div class="control mb-3">
+                    <input class="input" type="text" id="state" name="campground[state]" placeholder="state">
+                </div>
+                
+                <label class="label" for="image">image : </label>
+                <div class="control mb-3">
+                    <input class="input" type="text" id="image" name="campground[image]" placeholder="image url">
+                </div>
+                
+                <label class="label" for="description">description : </label>
+                <div class="control mb-3">
+                    <textarea class="textarea" id="description" name="campground[description]"></textarea>
+                </div>
+                
+                <label class="label" for="price">price : </label>
+                   <div class="field has-addons">
+                    <p class="control mb-3 has-icons-left ">
+                      <span class="input has-text-primary-dark has-background-primary">
+                        $
+                      </span>
+                    </p>
+                    <p class="control mb-3">
+                        <input class="input" type="text" placeholder="0.00" id="price" name="campground[price]">
+                    </p>
+                    <p class="control mb-3 ">
+                      <span class="input has-text-white">
+                        /night
+                      </span>
+                    </p>
+                  </div>
+
+                  <div class="field is-grouped is-grouped-right">
+                    <p class="control">
+                      <button class="button is-primary">
+                        Submit
+                      </button>
+                    </p>
+                    <p class="control">
+                      <a class="button is-light" href="/campgrounds">
+                        Cancel
+                      </a>
+                    </p>
+                  </div>
+            </form>
+        </div>
     </div>
 </div>

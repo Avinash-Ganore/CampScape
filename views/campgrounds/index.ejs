@@ -1,24 +1,43 @@
 <% layout("layouts/boilerplate") %>
-<h1>All Campgrounds</h1>
-<ul>
-    <% for (let campground of campgrounds) { %>
-        <div class="card mb-3" >
-            <div class="row">
-              <div class="col-md-4 h-100">
-                <img  src="<%=campground.image %>" class="img rounded-start" alt="...">
-              </div>
-              <div class="col-md-8">
-                <div class="card-body">
-                    <h5 class="card-title"><%=campground.title %></h5>
-                    <p class="card-text"><%= campground.description %></p>
-                    <p class="card-text">
-                        <small class="text-muted"><%= campground.location %></small>
-                    </p>
-                    <a class="btn btn-info" href="/campgrounds/<%= campground._id %>">View</a>
+<h1 class="title is-1 has-text-centered mb-6 ">All Campgrounds</h1>
 
+<div class="container-fluid">
+  <% for (let campground of campgrounds) { %>
+    <ul>
+      <div class="card mb-6 has-background-black">
+        <div class="columns">
+          <div class="column is-one-third">
+            <div class="card-image">
+              <figure class="image is-5by3">
+                <img
+                  src="<%=campground.image %>"
+                  alt="Placeholder image"
+                />
+              </figure>
+            </div>
+          </div>
+          <div class="column is-two-thirds">
+            <div class="card-content">
+              <div class="media">
+                <div class="media-content">
+                  <p class="title is-2"><%=campground.title %></p>
+                  <p class="subtitle is-6">@johnsmith</p>
                 </div>
+              </div>
+              <div class="content">
+                <%= campground.description %> 
+              </div>
+              <div class="content">
+                <p class="has-text-grey-dark"><%= campground.location %> </p>
+              </div>
+              <div class="field is-grouped is-grouped-right">
+                <a class="button is-primary is-outlined" href="/campgrounds/<%= campground._id %>">View</a>
               </div>
             </div>
           </div>
-    <% } %>
-</ul>
+        </div>
+      </div>
+    </ul>
+  <% } %>
+</div>
+
