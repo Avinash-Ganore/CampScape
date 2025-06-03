@@ -5,6 +5,7 @@ import path from "path";
 import ejsMate from "ejs-mate";
 import ExpressError from "./utils/ExpressError.js";
 import session from "express-session";
+import flash from "connect-flash";
 import camps from "./routes/campgrounds.js";
 import reviews from "./routes/reviews.js";
 
@@ -24,7 +25,8 @@ const port = 3000;
 app.engine("ejs", ejsMate);
 app.use(express.urlencoded({extended: true}));
 app.use(express.static(path.join(import.meta.dirname, "public")));
-app.use(session({
+
+const sessionConfig = {
     secret: "thisshouldbeabettersecret!",
     resave: false,
     saveUninitialized: true,
@@ -33,7 +35,17 @@ app.use(session({
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
         maxAge: 1000 * 60 * 60 * 24 * 7
     }
-}))
+};
+
+app.use(session(sessionConfig));
+app.use(flash());
+
+app.use((req,res,next) => {
+    res.locals.success = req.flash("success");
+    res.locals.error = req.flash("error");
+    next();
+})
+
 app.use(methodOverride('_method'));
 app.set("views", path.join(import.meta.dirname , "views"));
 app.set("view engine", "ejs");
