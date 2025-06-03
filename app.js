@@ -4,7 +4,7 @@ import methodOverride from "method-override";
 import path from "path";
 import ejsMate from "ejs-mate";
 import ExpressError from "./utils/ExpressError.js";
-
+import session from "express-session";
 import camps from "./routes/campgrounds.js";
 import reviews from "./routes/reviews.js";
 
@@ -23,12 +23,24 @@ const port = 3000;
 
 app.engine("ejs", ejsMate);
 app.use(express.urlencoded({extended: true}));
+app.use(express.static(path.join(import.meta.dirname, "public")));
+app.use(session({
+    secret: "thisshouldbeabettersecret!",
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        httpOnly: true,
+        expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+        maxAge: 1000 * 60 * 60 * 24 * 7
+    }
+}))
 app.use(methodOverride('_method'));
 app.set("views", path.join(import.meta.dirname , "views"));
 app.set("view engine", "ejs");
 
 app.use('/campgrounds', camps);
 app.use('/campgrounds/:id/reviews', reviews);
+
 
 
 app.all(/.*/, (req , res, next) => {
