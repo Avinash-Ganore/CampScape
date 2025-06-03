@@ -19,6 +19,10 @@ mongoose.connect("mongodb://localhost:27017/yelpCamp",{
 
 const random = array => array[Math.floor(Math.random() * array.length)]
 
+/**
+ * The function `seeddb` populates a database with 50 campground entries using random descriptors,
+ * places, cities, and images.
+ */
 const seeddb = async () => {
     await campground.deleteMany({});
     for (let i=0; i<50; i++) {
