@@ -30,6 +30,7 @@ const seeddb = async () => {
             title : `${random(descriptors)} ${random(places)}`,
             city : random(cities).city,
             state : random(cities).state,
+            author : '6841eb7470c336959b27028e',
             image : `https://picsum.photos/400?random=${Math.random()}`,
             description : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod.",
             price : Math.floor(Math.random() * 20) + 10
