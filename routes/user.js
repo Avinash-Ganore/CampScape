@@ -5,13 +5,13 @@ import { storeReturnTo } from "../utils/middleware.js";
 import * as users from "../controllers/users.js";
 const router = express.Router();
 
-router.get('/register', users.getRegister); 
+router.route('/register')
+    .get(users.getRegister)
+    .post(catchAsync(users.register));
 
-router.post('/register', catchAsync(users.register));
-
-router.get('/login', users.getLogin);
-
-router.post('/login', storeReturnTo, passport.authenticate('local',{failureFlash:true, failureRedirect:'/login'}), users.login);
+router.route('/login')
+    .get(users.getLogin)
+    .post(storeReturnTo, passport.authenticate('local',{failureFlash:true, failureRedirect:'/login'}), users.login);
 
 router.get('/logout', users.logout);
 

@@ -6,18 +6,17 @@ import * as campgrounds from "../controllers/campgrounds.js";
     
 const router = express.Router();
 
-router.get("/", catchAsync(campgrounds.index));
+router.route('/')
+    .get(catchAsync(campgrounds.index))
+    .post(isloggedIn, validateCampground, catchAsync(campgrounds.createNew));
 
 router.get("/new",isloggedIn, campgrounds.getNew)
 
-router.get("/:id", catchAsync(campgrounds.show))
+router.route("/:id")
+    .get(catchAsync(campgrounds.show))
+    .put(isloggedIn, isAuthor, validateCampground, catchAsync(campgrounds.edit))
+    .delete(isloggedIn, isAuthor, catchAsync(campgrounds.deleteCampground));
 
-router.post("/",isloggedIn, validateCampground, catchAsync(campgrounds.createNew))
-
-router.get("/:id/edit",isloggedIn, isAuthor, catchAsync(campgrounds.getEdit))
-
-router.put("/:id",isloggedIn, isAuthor, validateCampground, catchAsync(campgrounds.edit))
-
-router.delete("/:id",isloggedIn, isAuthor, catchAsync(campgrounds.deleteCampground))
+router.get("/:id/edit",isloggedIn, isAuthor, catchAsync(campgrounds.getEdit));
 
 export default router;
