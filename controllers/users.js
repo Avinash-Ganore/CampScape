@@ -1,9 +1,9 @@
-import User from "../models/user.js";
-export const getRegister = (req, res) => {
+const User = require('../models/user');
+module.exports.getRegister = (req, res) => {
     res.render('users/register');
 }
 
-export const register = async (req, res) => {
+module.exports.register = async (req, res) => {
     try {
         const {email, username, password} = req.body;
         const user = await new User({username, email});
@@ -20,17 +20,17 @@ export const register = async (req, res) => {
     }
 }
 
-export const getLogin = (req, res) => {
+module.exports.getLogin = (req, res) => {
     res.render('users/login');
 }
 
-export const login = (req, res) => {
+module.exports.login = (req, res) => {
     req.flash('success', 'Welcome back!');
     const redirectUrl = res.locals.returnTo || '/campgrounds';
     res.redirect(redirectUrl);
 }
 
-export const logout = (req, res) => {
+module.exports.logout = (req, res) => {
     req.logout((err) => {
         if(err) return next(err);
         req.flash('success', 'Goodbye!!');

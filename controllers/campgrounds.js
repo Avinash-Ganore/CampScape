@@ -1,16 +1,20 @@
-import Campground from "../models/campground.js";
-import capitalize from "../utils/capitalize.js";
+// import Campground from "../models/campground.js";
+// import capitalize from "../utils/capitalize.js";
 
-export const index = async (req, res) => {
+const Campground = require('../models/campground');
+const capitalize = require('../utils/capitalize');
+
+
+module.exports.index = async (req, res) => {
     const campgrounds = await Campground.find({});
     res.render("campgrounds/index", {campgrounds});
 }
 
-export const getNew = (req, res) => {
+module.exports.getNew = (req, res) => {
     res.render("campgrounds/create");
 }
 
-export const show = async (req, res) => {
+module.exports.show = async (req, res) => {
     const campground= await Campground.findById(req.params.id).populate({
         path: "reviews",
         populate : {
@@ -26,7 +30,7 @@ export const show = async (req, res) => {
     res.render("campgrounds/show",{campground})
 }
 
-export const createNew = async (req, res) => {
+module.exports.createNew = async (req, res) => {
     req.body.campground.title = capitalize(req.body.campground.title);
     req.body.campground.city = capitalize(req.body.campground.city);
     req.body.campground.state = capitalize(req.body.campground.state);
@@ -37,7 +41,7 @@ export const createNew = async (req, res) => {
     res.redirect(`/campgrounds/${newCamp._id}`);
 }
 
-    export const getEdit = async (req, res) => {
+    module.exports.getEdit = async (req, res) => {
     const {id} = req.params;
     const campground = await Campground.findById(id);
     if (!campground) {
@@ -47,7 +51,7 @@ export const createNew = async (req, res) => {
     res.render("campgrounds/edit", {campground});
 }
 
-export const edit = async (req, res) => {
+module.exports.edit = async (req, res) => {
     const {id} = req.params;
     req.body.campground.title = capitalize(req.body.campground.title);
     req.body.campground.city = capitalize(req.body.campground.city);
@@ -57,7 +61,7 @@ export const edit = async (req, res) => {
     res.redirect(`/campgrounds/${id}`);
 }
 
-export const deleteCampground = async (req, res) => {
+module.exports.deleteCampground = async (req, res) => {
     await Campground.findByIdAndDelete(req.params.id);
     req.flash('success', 'Successfully deleted campground!')
     res.redirect("/campgrounds");

@@ -1,8 +1,8 @@
-import express from "express";
-import Campground from "../models/campground.js";
-import catchAsync from "../utils/catchAsync.js";
-import { isloggedIn, validateCampground, isAuthor } from "../utils/middleware.js";
-import * as campgrounds from "../controllers/campgrounds.js";
+const express = require("express");
+const Campground = require("../models/campground");
+const catchAsync = require("../utils/catchAsync");
+const { isloggedIn, validateCampground, isAuthor } = require("../utils/middleware");
+const campgrounds = require("../controllers/campgrounds");
     
 const router = express.Router();
 
@@ -19,4 +19,4 @@ router.route("/:id")
 
 router.get("/:id/edit",isloggedIn, isAuthor, catchAsync(campgrounds.getEdit));
 
-export default router;
+module.exports = router;

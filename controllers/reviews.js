@@ -1,6 +1,6 @@
-import Review from "../models/reviews.js";
-import Campground from "../models/campground.js";
-export const createReview = async (req, res) => {
+const Review = require("../models/reviews");
+const Campground = require("../models/campground");
+module.exports.createReview = async (req, res) => {
     const campground = await Campground.findById(req.params.id);
     const review = new Review(req.body.review);
     review.author = req.user._id;
@@ -11,7 +11,7 @@ export const createReview = async (req, res) => {
     res.redirect(`/campgrounds/${req.params.id}`)
 }
 
-export const deleteReview = async (req,res) => {
+module.exports.deleteReview = async (req,res) => {
     const {id, reviewId} = req.params
     await Review.findByIdAndDelete(reviewId);
     await Campground.findByIdAndUpdate(id, {$pull : {reviews : reviewId}});

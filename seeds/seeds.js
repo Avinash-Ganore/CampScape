@@ -1,8 +1,7 @@
-
-import mongoose from "mongoose";
-import campground from "../models/campground.js";
-import cities from "./cities.js";
-import {descriptors, places} from "./title.js";
+const mongoose = require('mongoose');
+const cities = require('./cities');
+const { places, descriptors } = require('./title');
+const Campground = require('../models/campground');
 
 
 mongoose.connect("mongodb://localhost:27017/yelpCamp",{

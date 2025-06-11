@@ -1,8 +1,8 @@
-import express from "express";
-import catchAsync from "../utils/catchAsync.js";
-import passport from "passport";
-import { storeReturnTo } from "../utils/middleware.js";
-import * as users from "../controllers/users.js";
+const express = require("express");
+const catchAsync = require("../utils/catchAsync");
+const passport = require("passport");
+const { storeReturnTo } = require("../utils/middleware");
+const users = require("../controllers/users");
 const router = express.Router();
 
 router.route('/register')
@@ -15,4 +15,4 @@ router.route('/login')
 
 router.get('/logout', users.logout);
 
-export default router;
+module.exports = router;
