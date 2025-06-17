@@ -16,19 +16,20 @@ mongoose.connect("mongodb://localhost:27017/yelpCamp",{
     console.log(err);
 })
 
-const random = array => array[Math.floor(Math.random() * array.length)]
+const random = array => array[Math.floor(Math.random() * array.length)];
 
 /**
  * The function `seeddb` populates a database with 50 campground entries using random descriptors,
  * places, cities, and images.
- */
+*/
 const seeddb = async () => {
-    await campground.deleteMany({});
-    for (let i=0; i<50; i++) {
+  await campground.deleteMany({});
+  for (let i=0; i<50; i++) {
+      const random1000 = Math.floor(Math.random() * 1000)
         const camp = new campground({
             title : `${random(descriptors)} ${random(places)}`,
-            city : random(cities).city,
-            state : random(cities).state,
+            city : cities[random1000].city,
+            state : cities[random1000].state,
             author : '6841eb7470c336959b27028e',
             image : [
     {
@@ -44,7 +45,10 @@ const seeddb = async () => {
             price : Math.floor(Math.random() * 20) + 10,
             geometry : {
                 type : "Point",
-                coordinates : [75.9268747,40.3356483]
+                coordinates : [
+                  cities[random1000].longitude,
+                  cities[random1000].latitude
+                ]
             }
         });
         await camp.save();
