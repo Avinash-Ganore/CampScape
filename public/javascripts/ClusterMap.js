@@ -27,11 +27,11 @@ map.on('load', function () {
             'circle-color': [
                 'step',
                 ['get', 'point_count'],
-                '#00BCD4',
+                '#455A64',
                 10,
-                '#2196F3',
+                '#78909C',
                 30,
-                '#3F51B5'
+                '#B0BEC5'
             ],
             'circle-radius': [
                 'step',
@@ -54,6 +54,9 @@ map.on('load', function () {
             'text-field': '{point_count_abbreviated}',
             'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
             'text-size': 12
+        },
+        paint: {
+            'text-color': '#fff'
         }
     });
 
@@ -63,7 +66,7 @@ map.on('load', function () {
         source: 'campgrounds',
         filter: ['!', ['has', 'point_count']],
         paint: {
-            'circle-color': '#11b4da',
+            'circle-color': '#263238',
             'circle-radius': 4,
             'circle-stroke-width': 1,
             'circle-stroke-color': '#fff'

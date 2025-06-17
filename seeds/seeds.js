@@ -24,7 +24,7 @@ const random = array => array[Math.floor(Math.random() * array.length)];
 */
 const seeddb = async () => {
   await campground.deleteMany({});
-  for (let i=0; i<50; i++) {
+  for (let i=0; i<200; i++) {
       const random1000 = Math.floor(Math.random() * 1000)
         const camp = new campground({
             title : `${random(descriptors)} ${random(places)}`,
