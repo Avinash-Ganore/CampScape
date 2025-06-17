@@ -1,11 +1,16 @@
 <% layout("layouts/boilerplate") %>
+
 <h1>All Campgrounds</h1>
 <ul>
     <% for (let campground of campgrounds) { %>
       <div class="card mb-3" >
         <div class="row">
           <div class="col-md-4 h-100">
+            <% if (campground.image.length > 0) { %>
             <img  src="<%=campground.image[0].url%>" class="img rounded-start h-100 w-100" alt="...">
+            <% } else { %>
+              <img src="https://res.cloudinary.com/drtjoxefc/image/upload/v1750148439/CampScape/i1lawicyai2dloa3bicc.jpg" class="img rounded-start h-100 w-100" alt="">
+            <% } %>
           </div>
           <div class="col-md-8">
             <div class="card-body">
