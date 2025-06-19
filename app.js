@@ -17,6 +17,7 @@ const userRoutes = require("./routes/user");
 const User = require("./models/user");
 const passport = require("passport");
 const local = require("passport-local");
+const helmet = require('helmet');
 
 mongoose.connect("mongodb://localhost:27017/yelpCamp",{
         useNewUrlParser : true,
@@ -53,6 +54,7 @@ const sessionConfig = {
 
 app.use(session(sessionConfig));
 app.use(flash());
+app.use(helmet({contentSecurityPolicy: false}));
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -77,7 +79,6 @@ app.use('/campgrounds', campRoutes);
 app.use('/campgrounds/:id/reviews', reviewsRoutes);
 
 app.get('/', (req, res) => {
-    console.log(req.query);
     res.render('home');
 })
 
