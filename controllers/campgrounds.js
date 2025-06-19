@@ -1,6 +1,3 @@
-// import Campground from "../models/campground.js";
-// import capitalize from "../utils/capitalize.js";
-
 const Campground = require('../models/campground');
 const capitalize = require('../utils/capitalize');
 const {cloudinary} = require('../cloudinary');
@@ -43,7 +40,6 @@ module.exports.createNew = async (req, res) => {
     newCamp.image = req.files.map(file => ({url : file.path, filename : file.filename}));
     newCamp.author = req.user._id;
     await newCamp.save();
-    console.log(newCamp);
     req.flash('success', 'Successfully made a new campground!')
     res.redirect(`/campgrounds/${newCamp._id}`);
 }
