@@ -2,6 +2,7 @@ if (process.env.NODE_ENV !== "production") {
     require("dotenv").config();
 }
 
+const sanitizeV5 = require('./utils/mongoSanitizeV5.js');
 const express = require("express");
 const mongoose = require("mongoose");
 const methodOverride = require("method-override");
@@ -28,11 +29,14 @@ mongoose.connect("mongodb://localhost:27017/yelpCamp",{
 })
 
 const app = express();
+app.set('query parser', 'extended');
+
 const port = 3000;
 
 app.engine("ejs", ejsMate);
 app.use(express.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, "public")));
+app.use(sanitizeV5({ replaceWith: '_' }));
 
 const sessionConfig = {
     secret: "thisshouldbeabettersecret!",
@@ -71,6 +75,7 @@ app.use('/campgrounds', campRoutes);
 app.use('/campgrounds/:id/reviews', reviewsRoutes);
 
 app.get('/', (req, res) => {
+    console.log(req.query);
     res.render('home');
 })
 
