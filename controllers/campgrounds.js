@@ -59,7 +59,7 @@ module.exports.edit = async (req, res) => {
     req.body.campground.title = capitalize(req.body.campground.title);
     req.body.campground.city = capitalize(req.body.campground.city);
     req.body.campground.state = capitalize(req.body.campground.state);
-    const campground = await Campground.findByIdAndUpdate(id, req.body.campground, {runValidators: true})
+    const campground = await Campground.findByIdAndUpdate(id, req.body.campground, {runValidators: true, new: true});
     const geoData = await maptilerClient.geocoding.forward(campground.location, { limit: 1 });
     campground.geometry = geoData.features[0].geometry;
     const images = req.files.map(file => ({url : file.path, filename : file.filename}));

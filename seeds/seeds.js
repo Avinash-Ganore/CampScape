@@ -33,12 +33,12 @@ const seeddb = async () => {
             author : '6841eb7470c336959b27028e',
             image : [
     {
-      url: 'https://res.cloudinary.com/drtjoxefc/image/upload/v1749649445/CampScape/paojbtm3imok81m7pots.jpg',
-      filename: 'CampScape/paojbtm3imok81m7pots'
+      url: 'https://res.cloudinary.com/drtjoxefc/image/upload/v1750390890/CampScape/jtcandgfhgf9cc7l2vjv.jpg',
+      filename: 'CampScape/jtcandgfhgf9cc7l2vjv'
     },
     {
-      url: 'https://res.cloudinary.com/drtjoxefc/image/upload/v1749649445/CampScape/ohnhfbyk1v0n8zoozir1.png',
-      filename: 'CampScape/ohnhfbyk1v0n8zoozir1'
+      url: 'https://res.cloudinary.com/drtjoxefc/image/upload/v1750390888/CampScape/uu26rslq8ivm03p4rfib.jpg',
+      filename: 'CampScape/uu26rslq8ivm03p4rfib'
     }
   ],
             description : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod.",
