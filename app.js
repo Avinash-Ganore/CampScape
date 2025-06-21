@@ -19,11 +19,10 @@ const passport = require("passport");
 const local = require("passport-local");
 const helmet = require('helmet');
 const MongoStore = require('connect-mongo');
-const dbUrl = "mongodb://localhost:27017/yelpCamp";
-// const dbUrl = process.env.DB_URL;
-// "mongodb://localhost:27017/yelpCamp"
+const dbUrl = process.env.DB_URL || "mongodb://localhost:27017/yelpCamp";
 
-mongoose.connect("mongodb://localhost:27017/yelpCamp", {
+
+mongoose.connect(dbUrl, {
         useNewUrlParser : true,
         useUnifiedTopology : true
 })
@@ -43,11 +42,13 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(sanitizeV5({ replaceWith: '_' }));
 
+const secret = process.env.SECRET || 'thisshouldbeabettersecret!';
+
 const store = MongoStore.create({
   mongoUrl: dbUrl,
   touchAfter:24*60*60,
   crypto: {
-    secret: 'thisshouldbeabettersecret!'
+    secret
   }
 });
 
@@ -58,7 +59,7 @@ store.on('error', function(e){
 const sessionConfig = {
     store,
     name: "session",
-    secret: "thisshouldbeabettersecret!",
+    secret,
     resave: false,
     saveUninitialized: true,
     cookie: {   
